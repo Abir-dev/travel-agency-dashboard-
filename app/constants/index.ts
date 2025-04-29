@@ -143,7 +143,6 @@ export const RIGHT_CONFETTI = {
 };
 
 
-export const user = { name: 'Jordan' };
 export const dashboardStats = {
   totalUsers: 12450,
   usersJoined:  { currenMonth: 218, lastMonth: 176 },
@@ -189,7 +188,7 @@ export const allTrips = [
       estimatedPrice: "$4,000",
     },
   ];
-const users = [
+export const users = [
   {
     id: 1,
     name: "John Doe",
