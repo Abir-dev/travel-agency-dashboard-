@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { logoutUser, storeUserData, getExistingUser } from "~/appwrite/auth";
-import { account } from "~/appwrite/client";
-import { Link, useNavigate } from "react-router";
+import React, { useEffect, useState } from 'react';
+import { logoutUser, storeUserData, getExistingUser } from '~/appwrite/auth';
+import { account } from '~/appwrite/client';
+import { Link, useNavigate } from 'react-router';
 
 const PageLayout = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState<{ name: string; imageUrl?: string } | null>(null);
 
     const handleLogout = async () => {
         await logoutUser();
@@ -14,20 +15,24 @@ const PageLayout = () => {
     useEffect(() => {
         const checkAndStoreUser = async () => {
             try {
-                const user = await account.get();
-                if (!user) return;
+                const currentUser = await account.get();
+                if (!currentUser) return;
 
-                const existing = await getExistingUser(user.$id);
+                const existing = await getExistingUser(currentUser.$id);
+
                 if (!existing) {
                     console.log("Storing new user to database...");
                     await storeUserData();
                 } else {
                     console.log("User already exists in database.");
+                    setUser({
+                        name: existing.name,
+                        imageUrl: existing.imageUrl || '/assets/images/david.webp',
+                    });
                 }
             } catch (err) {
                 console.error("User not authenticated or error occurred:", err);
-                // Optionally navigate to sign-in if you want to enforce auth
-                // navigate('/sign-in');
+                // Optional: navigate('/sign-in');
             }
         };
 
@@ -35,29 +40,51 @@ const PageLayout = () => {
     }, []);
 
     return (
-        <main className="travel-hero min-h-screen">
-            <section className="flex px-30 py-4 min-h-screen">
-                <Link to=''>
-                    <img
-                        src="/assets/icons/logo.svg"
-                        alt='Logo'
-                        className='size-[30px]'
-                    />
+        <main className="travel-hero relative bg-cover bg-center">
+            {/* Navbar */}
+            <nav className="root-nav px-8 py-6 absolute -top-8 left-0 w-full z-10">
+                <Link to="/" className="flex items-center gap-2">
+                    <img src="/assets/icons/logo.svg" alt="Logo" className="size-8" />
+                    <h1 className="text-xl md:text-2xl font-bold text-dark-100">Tourvisto</h1>
                 </Link>
-                <h1 className='p-28-semibold text-dark-100 mt-1 mr-200 ml-2'>Tourvisto</h1>
 
-                <button onClick={() => navigate('/dashboard')}
-                        className="cursor-pointer mb-200 text-white mt-1/2">
-                    Admin Panel
-                </button>
+                <aside className="flex items-center gap-4">
+                    <span className="text-white hidden sm:block cursor-pointer">Admin Panel</span>
+                    <img
+                        src={user?.imageUrl || '/assets/images/david.webp'}
+                        alt={user?.name || 'User'}
+                        className="size-9 rounded-full aspect-square object-cover"
+                        referrerPolicy="no-referrer"
+                    />
+                    <button onClick={handleLogout} className="p-2 rounded-full bg-white/30 hover:bg-white/20 cursor-pointer">
+                        <img src="/assets/icons/logout.svg" alt="logout" className="size-5" />
+                    </button>
+                </aside>
+            </nav>
 
-                <button
-                    onClick={handleLogout}
-                    className="cursor-pointer"
-                >
-                    <img src="/assets/icons/logout.svg" alt="logout" className="size-6 mb-200 ml-2" />
-                </button>
-            </section>
+            {/* Hero content */}
+            <div className="flex flex-col justify-center h-full px-8 md:px-16">
+                <section className="flex flex-col gap-6 py-48 max-w-2xl">
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-dark-100">
+                        Plan Your
+                    </h1>
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-dark-100">
+                        Trip with Ease
+                    </h1>
+                    <article className="flex flex-col gap-4">
+                        <p className="text-lg text-dark-400">
+                            Customize your travel itinerary in minutes—pick your destination,
+                            set your preferences, and explore with confidence.
+                        </p>
+                        <button
+                            onClick={() => navigate('/dashboard')}
+                            className="mt-4 w-fit px-6 py-3 text-white button-class"
+                        >
+                            Get Started
+                        </button>
+                    </article>
+                </section>
+            </div>
         </main>
     );
 };
