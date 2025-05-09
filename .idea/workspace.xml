@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fe283d8-4511-4fd9-a25f-406e26f51d1f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/appwrite/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/appwrite/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/admin/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/admin/dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/root/page-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/root/page-layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +127,16 @@
       <workItem from="1746540866978" duration="2630000" />
       <workItem from="1746551783381" duration="694000" />
       <workItem from="1746557092044" duration="1146000" />
+      <workItem from="1746626365587" duration="447000" />
+      <workItem from="1746627285195" duration="30000" />
+      <workItem from="1746716464055" duration="2536000" />
+      <workItem from="1746719049348" duration="327000" />
+      <workItem from="1746722097444" duration="163000" />
+      <workItem from="1746724027751" duration="1792000" />
+      <workItem from="1746766606238" duration="4453000" />
+      <workItem from="1746771402964" duration="743000" />
+      <workItem from="1746772202853" duration="592000" />
+      <workItem from="1746779218156" duration="3859000" />
     </task>
     <servers />
   </component>
